@@ -1,16 +1,19 @@
 #include <bits/stdc++.h>
 using namespace std;
 int n;
-int sum_digit(int x){
-    int t=0;
-    while (x){
-        t += (x%10);
-        x /= 10;
-    }
-    return t;
-}
+struct cmp{
+    bool operator() (int a,int b) {return a>b;}
+};
+multiset <int,cmp> myset;
 int main(){
+    srand(time(NULL));
     cin>>n;
-    cout<<((sum_digit(n)%10 == 8)?"YES":"NO");
+    for (int i=1;i<=n;i++) myset.insert(rand()%100);
+    for (auto x:myset) cout<<x<<" ";
+    int m;
+    cin>>m;
+    auto it = myset.upper_bound(m);
+    //it--;
+    cout<<*it;
     return 0;
 }

@@ -1,23 +1,22 @@
 #include<bits/stdc++.h>
 using namespace std;
-typedef long long ll;
-int t;
-double x,y,c;
+int n,k,a[2001];
+void Input(){
+    cin>>n>>k;
+    for (int i=1;i<=n;i++) cin>>a[i];
+    sort(a+1,a+n+1);
+}
 void Process(){
-    cin>>x>>y>>c;
-    double _x,_y;
-    _x = (x+y)/2;
-    _y = (2*x*y)/(x+y);
-    double r = sqrt(_x*_x + _y*_y);
-    if (r>c) cout<<"SAFE\n";
-    else cout<<"DANGER\n";
+    Input();
+    int res = 0;
+    for (int i=n;i>=1;i-=k) res += (a[i]-1)*2;
+    cout<<res;
 }
 int main(){
 	ios_base::sync_with_stdio(0);
 	cin.tie(NULL); cout.tie(NULL);
 	//freopen("C:\\Users\\casau\\Desktop\\INPUT.txt","r",stdin);
 	//freopen("C:\\Users\\casau\\Desktop\\OUTPUT.txt","w",stdout);
-	cin>>t;
-	while (t--) Process();
+	Process();
 	return 0;
 }
