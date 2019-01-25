@@ -1,51 +1,77 @@
 #include<bits/stdc++.h>
-#define f first
-#define s second
 using namespace std;
-typedef pair <int,int> ii;
-ii a,b;
-map <ii,bool> m;
-int res;
-struct ele{
-    ii v;
-    int coun;
-    ele(){}
-    ele(int a,int b,int c){
-        v.f=a;
-        v.s=b;
-        coun=c;
+int a,b,c,d;
+typedef pair<int,int> ii;
+int visited[1001001];
+int number(int x,int y){
+    return (x*1000+y);
+}
+ii bung(int k){
+    ii t;
+    t.first = k/1000;
+    t.second = k%1000;
+    if (!t.second) {
+        t.second = 1000;
+        t.first--;
     }
-    ele(ii k,int c){
-        v=k;
-        coun=c;
-    }
-};
+    return t;
+}
+bool valid(int x,int y){
+    if (x>=1 && x<=1000 && y>=1 && y<=1000) return true;
+    return false;
+}
 void BFS(){
-    queue <ele> q;
-    q.push(ele(a,0));
-    ele t;
-    while (!q.empty()){
-        t=q.front();
-        q.pop();
-        if (m[t.v]==true || t.v.f>1000 || t.v.s>1000) continue;
-        if (t.v==b){
-            res=t.coun;
-            return;
+    queue <int> que;
+    int start = number(a,b);
+    que.push(start);
+    memset(visited,-1,sizeof(visited));
+    visited[start] = 0;
+    int x,y,xx,yy,hast;
+    while (!que.empty()){
+        int temp = que.front();
+        que.pop();
+        x = bung(temp).first;
+        y = bung(temp).second;
+        xx = x+y;
+        yy = y;
+        if (valid(xx,yy) && visited[number(xx,yy)] == -1){
+            hast = number(xx,yy);
+            visited[hast] = visited[temp]+1;
+            que.push(hast);
+            if (xx == c && yy == d) return;
         }
-        m[t.v]=false;
-        q.push(ele(t.v.f+t.v.s,t.v.s,t.coun+1));
-        q.push(ele(t.v.s,t.v.f,t.coun+1));
-        if (t.v.f-t.v.s>0) q.push(ele(t.v.f-t.v.s,t.v.s,t.coun+1));
+        xx = y;
+        yy = x;
+        if (valid(xx,yy) && visited[number(xx,yy)] == -1){
+            hast = number(xx,yy);
+            visited[hast] = visited[temp]+1;
+            que.push(hast);
+            if (xx == c && yy == d) return;
+        }
+        xx = x-y;
+        yy = y;
+        if (valid(xx,yy) && visited[number(xx,yy)] == -1){
+            hast = number(xx,yy);
+            visited[hast] = visited[temp]+1;
+            que.push(hast);
+            if (xx == c && yy == d) return;
+        }
     }
-    res=-1;
+}
+void Process(){
+    cin>>a>>b>>c>>d;
+    BFS();
+    if (visited[number(c,d)]==-1){
+        cout<<-1;
+        return;
+    }
+    cout<<visited[number(c,d)];
 }
 int main(){
 	ios_base::sync_with_stdio(0);
 	cin.tie(NULL); cout.tie(NULL);
 	//freopen("C:\\Users\\casau\\Desktop\\INPUT.txt","r",stdin);
 	//freopen("C:\\Users\\casau\\Desktop\\OUTPUT.txt","w",stdout);
-	cin>>a.f>>a.s>>b.f>>b.s;
-	BFS();
-	cout<<res<<"\n";
+	Process();
 	return 0;
 }

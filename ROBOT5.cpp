@@ -2,15 +2,16 @@
 using namespace std;
 typedef long long ll;
 int t;
-double x,y,c;
+ll x,y,c;
 void Process(){
     cin>>x>>y>>c;
-    double _x,_y;
+    ll _x,_y;
     _x = (x+y)/2;
     _y = (2*x*y)/(x+y);
-    double r = sqrt(_x*_x + _y*_y);
-    if (r>c) cout<<"SAFE\n";
+    ll r = _x*_x + _y*_y;
+    if (r>c*c) cout<<"SAFE\n";
     else cout<<"DANGER\n";
+    //cout<<r<<" "<<c*c;
 }
 int main(){
 	ios_base::sync_with_stdio(0);

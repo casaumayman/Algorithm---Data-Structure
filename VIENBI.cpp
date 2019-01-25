@@ -1,9 +1,13 @@
 #include<bits/stdc++.h>
 using namespace std;
-int n;
+int a,b,c;
 void Process(){
-    cin>>n;
-    cout<<pow(3,n) - 7;
+    cin>>a>>b>>c;
+    if (c>b) swap(b,c);
+    b -= c;
+    a += c*2;
+    if (!(b%3) && a) cout<<"YES";
+    else cout<<"NO";
 }
 int main(){
 	ios_base::sync_with_stdio(0);

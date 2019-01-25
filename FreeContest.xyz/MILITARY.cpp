@@ -1,9 +1,15 @@
 #include<bits/stdc++.h>
 using namespace std;
-int n;
+long long N,A,B;
 void Process(){
-    cin>>n;
-    cout<<pow(3,n) - 7;
+    cin>>N>>A>>B;
+    if (A>B) swap(A,B);
+    if (N==1 && A!=B) cout<<0;
+    else {
+        long long maxs = B*(N-1)+A;
+        long long mins = A*(N-1)+B;
+        cout<<maxs-mins+1;
+    }
 }
 int main(){
 	ios_base::sync_with_stdio(0);

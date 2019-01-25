@@ -1,18 +1,41 @@
 #include<bits/stdc++.h>
 using namespace std;
-typedef vector<int> vi;
-string S,T;
-int n,m;
+int cA,cB,cAB;
 void Input(){
     srand(time(NULL));
-    n = rand()%10 + 1;
-    m = rand()%n + 1;
-    for (int i=1;i<=n;i++) S += char(rand()%26 + 'a');
-    for (int i=1;i<=m;i++) T += char(rand()%26 + 'a');
+    cA = 0;
+    cB = 0;
+    cAB = rand()%5;
+}
+string code_chuan(){
+    if(cAB == cA && cB == cA && cB == 0 || (cA == cB && cAB == 0)){
+        return "ALICE";
+        exit(0);
+    }
+    if(cA >= (cB + cAB % 2) || (cAB % 2 == 1 && cB == cA))
+        return "BOB";
+    else
+        return "ALICE";
+}
+string my_code(){
+    if (cA > cB) return "BOB";
+    else if (cA < cB) return "ALICE";
+    else {
+        if (cAB % 2 == 0) return "ALICE";
+        else return "BOB";
+    }
+}
+void Output(){
+    cout<<cA<<" "<<cAB<<" "<<cB<<"\n";
+    cout<<"code chuan: "<<code_chuan()<<"\n";
+    cout<<"my code: "<<my_code();
 }
 void Process(){
     Input();
-    cout<<S<<"\n"<<T;
+    while (my_code()==code_chuan()){
+        Input();
+    }
+    Output();
 }
 int main(){
 	ios_base::sync_with_stdio(0);
